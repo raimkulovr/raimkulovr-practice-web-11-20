@@ -23,7 +23,13 @@
         <h1>{{title}}</h1>
         <button @click = "getContent">Show/Hide Content</button>
         <div v-if="showContent">
-            <p>Content</p>
+            <p>Users</p>
+            <ul>
+                <li v-for="(user, index) in users" :key="index">
+                    <p>{{user.name}} - {{user.age}}</p>
+                    <span>{{user.email}}</span>
+                </li>
+            </ul>
         </div>
         
     </div>
@@ -32,12 +38,24 @@
         var app = new Vue({
             el: '#app',
             data: {
+                title: 'DATA',
                 showContent: false,
-                title: 'v-if',
+                // user: {
+                //     name: 'Mark',
+                //     email: 'lunatique@polytech.kz'
+                // }
+                users:[
+                    {name: 'Mark', email: 'lunatique@polytech.kz', age: 17},
+                    {name: 'Felix', email: 'xqcOW@gmail.com', age: 24},
+                    {name: 'Adept', email: 'Adept@gmail.com', age: 42},
+                ],
             },
+            
+
             methods: {
                 getContent () {
                     this.showContent = !this.showContent
+                    
                 }
             }
         })

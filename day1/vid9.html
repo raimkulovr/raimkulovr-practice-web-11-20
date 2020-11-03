@@ -21,9 +21,7 @@
     <div id="app">
         <!-- app -->
         <h1>{{title}}</h1>
-        <button @click = "getContent">Show/Hide Content</button>
-        <div v-if="showContent">
-            <p>Content</p>
+        <button @click="getDate"> Get Date</button>
         </div>
         
     </div>
@@ -32,13 +30,18 @@
         var app = new Vue({
             el: '#app',
             data: {
-                showContent: false,
-                title: 'v-if',
+                title: 'Mounted & Created',
             },
             methods: {
-                getContent () {
-                    this.showContent = !this.showContent
+                getDate(){
+                    alert(`Time = ${Date.now().toLocaleString()}`)
                 }
+            },
+            created(){
+                this.getDate()
+            },
+            mounted(){
+                this.getDate()
             }
         })
     </script>
