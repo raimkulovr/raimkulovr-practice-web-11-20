@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compaible" content="ie=edge">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        div{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: extra-bold;
+        }
+        
+    </style>
+    <script src="https://unpkg.com/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- app -->
+        <h1>{{title}}</h1>
+        <input v-model="text" type="text">
+        <!-- <button @click="getLowerText">GetLowerText</button> -->
+        <p>{{toLower}}</p>
+        <!-- <p>{{textLower}}</p> -->
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: 'Lower Case',
+                text: '',
+                textLower: '',
+                
+            },
+
+            computed: {
+               toLower(){
+                   return this.text.toLowerCase()
+               }
+            },
+
+            methods: {
+                getLowerText(){
+                    this.textLower = this.text.toLowerCase()
+                }
+            }
+
+        })
+    </script>
+
+</body>
+</html>
