@@ -6,26 +6,12 @@
           <h1>{{title}}</h1>
         
         <!-- new note -->
-        <div class="new-note" style="padding-bottom: 10px; padding-left: 10px;">
-            <input v-model="note.title" type="text">
-            <textarea v-model="note.descr"></textarea>
-            <button @click="addNote">New note</button>
-        </div>
-        <div class="message" v-if="message">
-            <p>{{message}}</p>
-        </div>
+        <message v-if="message" :message="message" />
+        <newNote  :note="note" @addNote="addNote" />
+        
         <!-- note list -->
-        <div class="notes" >
-            <div class="note" v-for="(note, index) in notes" :key="index" style="border: 4px double black; padding: 10px;">
-                <div class="note-header">
-                    <p>{{note.title}}</p>
-                </div>
-                <div class="note-body">
-                    <p>{{note.descr}}</p>
-                    <span>{{note.date}}</span>
-                </div>
-            </div>
-        </div>
+        <notes :notes="notes" @remove="removeNote" />
+
         </div>
       </section>
     </div>
@@ -33,7 +19,15 @@
 </template>
 
 <script>
+import message from '@/components/message.vue'
+import newNote from '@/components/newNote.vue'
+import notes from '@/components/notes.vue'
 export default {
+  components: {
+    message,
+    newNote,
+    notes
+  },
   data(){
     return{
       title: 'Notes App',
@@ -78,8 +72,12 @@ export default {
                 this.message = null
                 this.note.title = ''
                 this.note.descr = ''
+            },
+            removeNote(index){
+              this.notes.splice(index, 1)
             }
         },
+
 }
 </script>
 
