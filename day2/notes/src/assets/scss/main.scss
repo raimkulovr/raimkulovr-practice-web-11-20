@@ -16,6 +16,9 @@ html {
   @media screen and (max-width: $phoneWidth) {
 		font-size: 14px;
   }
+  :focus{
+    border: thin solid rgba(10, 10, 10, 0.287);
+  }
 }
 
 body {

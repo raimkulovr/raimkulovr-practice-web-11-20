@@ -7,7 +7,7 @@
         
         <!-- new note -->
         <message v-if="message" :message="message" />
-        <newNote  :note="note" @addNote="addNote" />
+        <newNote  :note="note" @addNote="addNote"/>
 
         <div class="note-header"  style="margin: 36px 0">
           <!-- title -->
@@ -56,22 +56,26 @@ export default {
       note: {
           title: '',
           descr: '',
+          priority: 'ordinary',
             },
       notes: [
           {
             title: '1st Note',
             descr: 'Description for 1st note',
-            date: new Date(Date.now()).toLocaleString()
+            date: new Date(Date.now()).toLocaleString(),
+            priority: 'ordinary'
           },
           {
             title: '2nd Note',
             descr: 'Description for 2nd note',
-            date: new Date(Date.now()).toLocaleString()
+            date: new Date(Date.now()).toLocaleString(),
+            priority: 'medium'
           },
           {
             title: '3rd Note',
             descr: 'Description for 3rd note',
-            date: new Date(Date.now()).toLocaleString()
+            date: new Date(Date.now()).toLocaleString(),
+            priority: 'important'
           }
       ]
     }
@@ -97,25 +101,32 @@ export default {
   },
   methods: {
           addNote(){
-              console.log(this.note)
-              let {title, descr} = this.note
+            
+              let {title, descr, priority} = this.note
               if (title === '') {
                   this.message = 'title can`t be empty!'
                   return false
               }
+              if(priority ===''){
+                this.message = 'priority can`t be empty!'
+                return false
+              }
+              
+              console.log(priority)
               this.notes.push({
                   title,
                   descr,
-                  date: new Date(Date.now()).toLocaleString()
-                  
+                  priority,
+                  date: new Date(Date.now()).toLocaleString()                  
               })
+              
               this.message = null
               this.note.title = ''
               this.note.descr = ''
           },
           removeNote(index){
             this.notes.splice(index, 1)
-          }
+          },
       },
 
 }
