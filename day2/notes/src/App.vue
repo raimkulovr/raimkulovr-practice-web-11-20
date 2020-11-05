@@ -123,6 +123,7 @@ export default {
               this.message = null
               this.note.title = ''
               this.note.descr = ''
+              this.note.priority = 'ordinary'
           },
           removeNote(index){
             this.notes.splice(index, 1)
