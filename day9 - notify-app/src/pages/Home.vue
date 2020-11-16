@@ -6,7 +6,6 @@
           <h1>Long ago...</h1>
           
 
-
         </div>
       </section>
     </div>
