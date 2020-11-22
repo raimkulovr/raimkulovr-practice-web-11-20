@@ -2,30 +2,29 @@
     <div class="wrapper-content wrapper-content--fixed">
     <post :post="post" />
     <comments :comments="comments"/>
-    <newComment />
+    <newComment :postid="$route.params.id" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import post from '@/components/Blog/Post.vue'
 import newComment from '@/components/Comments/NewComment.vue'
 import comments from '@/components/Comments/Comments.vue'
 
 export default {
     components: {post, comments, newComment},
-    data() {
-        return{
-            post: {
-                id: 1,
-                title: '1 post',
-                descr: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
-                content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
-                img: 'https://cdn.discordapp.com/attachments/650962642999050252/778524560289955871/p0278f0f.jpg'
-            },
-            comments: [
-                {name: 'Mark', text: 'loremipsum. ipsum dolor sit amet consectetur adipisicing'},
-                {name: 'Anon', text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.'}
-            ]
+    async asyncData(context) {
+        let [post, comments] = await Promise.all([
+            axios.get(`https://blog-nuxt-e2074.firebaseio.com/posts/${context.params.id}.json`),
+            axios.get(`https://blog-nuxt-e2074.firebaseio.com/comments.json`)
+        ])
+
+        let commentsArrayRes = Object.values(comments.data).filter(comment => (comment.postid === context.params.id) && comment.publish)
+
+        return {
+            post: post.data,
+            comments: commentsArrayRes
         }
     }
 }

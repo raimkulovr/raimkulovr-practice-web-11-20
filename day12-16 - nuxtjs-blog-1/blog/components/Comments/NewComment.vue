@@ -20,6 +20,12 @@
 <script>
 
 export default {
+    props: {
+        postid: {
+            type: String,
+            required: true
+        }
+    },
     
     data() {
         return {
@@ -32,10 +38,18 @@ export default {
     },
     methods: {
         onSubmit() {
-            this.message = 'Submitted!'
-            this.comment.name = ''
+            this.$store.dispatch('addComment', {
+                postid: this.postid,
+                publish: true,
+                ...this.comment 
+            })
+                .then(()=>{
+                    this.message = 'Submitted!'
+                    this.comment.name = ''          
+                    this.comment.text = ''
+                })
+                .catch(e => console.log(e))
             
-            this.comment.text = ''
         }
     }
 }
