@@ -27,8 +27,16 @@ export default {
     },
     methods: {
         onSubmit() {
-            this.user.email = '',
-            this.user.password = ''
+            this.$store.dispatch('authUser', this.user)
+                .then((res) => {
+                    this.$router.push('/admin')
+                    this.$store.dispatch('nuxtServerInit')
+                })
+                .catch((e)=>{
+                    console.log(e)
+                    this.user.email = '',
+                    this.user.password = ''
+                })
         }
     }
 }

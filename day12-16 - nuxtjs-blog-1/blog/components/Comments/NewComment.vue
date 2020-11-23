@@ -40,7 +40,7 @@ export default {
         onSubmit() {
             this.$store.dispatch('addComment', {
                 postid: this.postid,
-                publish: true,
+                publish: false,
                 ...this.comment 
             })
                 .then(()=>{

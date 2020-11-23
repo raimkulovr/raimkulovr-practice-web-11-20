@@ -17,7 +17,7 @@
 
               <div class="repos-head-item">  
                 <span>login: {{profEl.data.login}}</span><br>
-                <a :href="profEl.data.url" class="link">go to profile</a>
+                <a :href="profEl.data.html_url" class="link">go to profile</a>
               </div>
           </div>
 

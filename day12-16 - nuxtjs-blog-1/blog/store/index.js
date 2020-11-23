@@ -2,7 +2,9 @@ import axios from 'axios'
 
 
 export const state = () =>({
+    
     postsLoaded: [],
+    token: null,
     commentsLoaded: []
 })
 
@@ -22,6 +24,13 @@ export const mutations = {
         console.log(comment)       
         state.commentsLoaded.push(comment)
     },
+    setToken(state, token) {
+        console.log(token)
+        state.token = token
+    },
+    destroyToken(state){
+        state.token = null
+    }
 }
 
 export const actions = {
@@ -36,6 +45,21 @@ export const actions = {
             commit('setPosts', postsArray)
         })
         .catch(e => console.log(e))
+    },
+
+    authUser({commit}, authData) {
+        const key = 'AIzaSyA3iriJP6G93DA3x4qTWHSm8iF2xNiwVYU'
+        return axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`, {
+            email: authData.email,
+            password: authData.password,
+            returnSecureToken: true
+        })
+            .then((res) => {commit('setToken', res.data.idToken)})
+            .catch(e =>console.log(e))
+        
+    },
+    logOutUser({commit}){
+        commit('destroyToken')
     },
 
     addPost({commit}, post) {
@@ -63,13 +87,17 @@ export const actions = {
                 
                 commit('addComment', {...comment, id: res.data.name })
             })
-            .catch(e => console.log(e))
+            .catch(e => {console.log(e)})
     }
 
 }
 
 export const getters = {
     getPostsLoaded(state){
+        
         return state.postsLoaded
+    },
+    checkAuthUser (state) {
+        return state.token !=null
     }
 }
